@@ -18,14 +18,20 @@ pointerArray_t *pointerArrayCreate(size_t capacity) {
     return pointerArray;
 }
 
+/*
+ * Для корректной очистки нужно передать функцию очистки.
+ * Это может быть либо свою функция, либо free.
+ * Можно передать NULL, в случае если элементами массива являются
+ * стековые переменные.
+ */
 void pointerArrayDestroy(pointerArray_t *pointerArray, void (*destroyFunction)(void *)) {
     if (!pointerArray) return;
 
     for (size_t i = 0; i < pointerArray->size; i++) {
         void *currentItem = pointerArray->data[i];
         if (currentItem) {
-            if (destroyFunction) destroyFunction(currentItem);
-            else free(currentItem);
+            if (destroyFunction)
+                destroyFunction(currentItem);
         }
     }
 

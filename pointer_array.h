@@ -15,5 +15,4 @@ void pointerArrayDestroy(pointerArray_t *pointerArray, void (*destroyFunction)(v
 int pointerArrayAdd(pointerArray_t *pointerArray, void *item);
 void *pointerArrayGetAt(pointerArray_t *pointerArray, size_t index);
 
-
 #endif // POINTER_ARRAY_H
