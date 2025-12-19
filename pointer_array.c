@@ -3,10 +3,10 @@
 #include "pointer_array.h"
 
 pointerArray_t *pointerArrayCreate(size_t capacity) {
-    pointerArray_t *pointerArray = malloc(sizeof(*pointerArray));
+    pointerArray_t *pointerArray = (pointerArray_t *) malloc(sizeof(*pointerArray));
     if (!pointerArray) return NULL;
 
-    pointerArray->data = calloc(capacity, sizeof(void *));
+    pointerArray->data = (void **) calloc(capacity, sizeof(void *));
     if (!pointerArray->data) {
         free(pointerArray);
         return NULL;
@@ -47,7 +47,8 @@ int pointerArrayAdd(pointerArray_t *pointerArray, void *item) {
     if (pointerArray->size >= pointerArray->capacity) {
         size_t newCapacity = pointerArray->capacity ? pointerArray->capacity * 2 : 1;
 
-        pointerArray->data = realloc(pointerArray->data, sizeof(void *) * newCapacity);
+        pointerArray->data = (void **) realloc(pointerArray->data,
+                                                sizeof(void *) * newCapacity);
         if (!pointerArray->data) return EXIT_FAILURE;
 
         pointerArray->capacity = newCapacity;
